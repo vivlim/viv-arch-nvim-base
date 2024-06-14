@@ -9,7 +9,7 @@ RUN pacman -Sy --noconfirm \
   && passwd -d vivlim \
 # basic tools
   && pacman-key --init \
-  && pacman -S neovim git base base-devel iputils inotify-tools man-db tmux vi --noconfirm \
+  && pacman -S neovim git base base-devel iputils inotify-tools man-db tmux vi lazygit tmate wget tldr nodejs python python-pip sqlite --noconfirm \
 # install an aur helper
   # && cd /tmp \
   # && git clone https://aur.archlinux.org/yay.git \
@@ -27,4 +27,7 @@ RUN mkdir -p /home/vivlim/.config \
     && git clone https://github.com/vivlim/vimfiles.git /home/vivlim/.config/nvim -b neovim \
     && nvim --headless "+Lazy! install" +qa \
     && nvim --headless -c "TSInstallSync" -c 'sleep 20' -c 'qa'
+WORKDIR /home/vivlim
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
 CMD ["/usr/sbin/bash"]
